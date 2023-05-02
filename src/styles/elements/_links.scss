@@ -1,0 +1,6 @@
+@import '@/styles/settings/colors';
+
+@mixin non-link {
+  text-decoration: none;
+  color: $dark;
+}

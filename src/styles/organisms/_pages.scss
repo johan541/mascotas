@@ -1,0 +1,6 @@
+@mixin main {
+    width: 80vw;
+    height: calc(100vh - 7.2rem);
+    display: grid;
+    margin: auto;
+  }
