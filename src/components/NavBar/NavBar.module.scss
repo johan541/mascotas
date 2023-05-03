@@ -7,62 +7,66 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-weight: 500;
   padding: 0.8rem 3.2rem;
   box-sizing: border-box;
 }
 
-.navigation,
-.contact {
-  @include horizontal-list;
-
-  gap: 3.2rem;
-  font-size: 12pt;
+.brand {
+  @include non-link;
+  color: $primary-100;
 }
 
-.contact {
-  flex-wrap: wrap;
+.navigation {
+  @include horizontal-list;
 
-  & svg {
-    font-size: 16pt;
-  }
-
-  & > .item {
-    transition: transform 200ms ease-in-out;
-
-    &:hover {
-      transform: translateY(-2px);
-    }
-
-    &:active {
-      transform: scale(0.9);
-    }
-  }
+  place-content: center;
+  gap: 3.2rem;
+  font-size: 12pt;
+  box-sizing: border-box;
 }
 
 .link {
-  position: relative;
   display: inline-block;
+  @include non-link;
+  color: $text-200;
+  font-weight: 600;
+  transition: color border 100ms ease;
 
-  &::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: -3.2px;
-    width: 100%;
-    height: 2px;
-    background-color: transparent;
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 300ms ease;
+  &:hover {
+    color: $text-100;
   }
 
-  &:hover::before,
-  &.active::before {
-    transform: scaleX(1);
+  &:active {
+    color: $accent-100;
   }
 }
 
-.item > a {
-  @include non-link;
+.link:not(.auth).active {
+  display: inline;
+  color: $accent-100;
+  background-color: $accent-200;
+  padding: 0.4rem 0.8rem;
+  border-radius: 100vmax;
+}
+
+.auth {
+  & > .item {
+    & > .link {
+      display: inline;
+    }
+
+    &:last-child > .link {
+      padding: 0.8rem;
+      border-radius: 1vmin;
+      border: 2px solid $accent-200;
+
+      &:hover {
+        border-color: $accent-100;
+      }
+
+      &:active {
+        border-color: $accent-100;
+      }
+    }
+  }
 }

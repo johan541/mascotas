@@ -4,7 +4,11 @@ export interface Route {
 }
 
 export const Routes = Object.freeze({
-  HOME: Object.freeze<Route>({ path: '/', name: 'Home' }),
-  ABOUT: Object.freeze<Route>({ path: '/about', name: 'About' }),
-  PROJECTS: Object.freeze<Route>({ path: '/projects', name: 'Projects' }),
+  HOME: Object.freeze<Route>({ path: '/', name: 'Inicio' }),
+  PETS: Object.freeze<Route>({ path: '/pets', name: 'Mascotas' }),
+});
+
+export const AuthRoutes = Object.freeze({
+  SIGN_IN: Object.freeze<Route>({ path: '/login', name: 'Iniciar sesión' }),
+  SIGN_UP: Object.freeze<Route>({ path: '/signup', name: 'Registrarse' }),
 });
