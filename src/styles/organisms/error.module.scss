@@ -1,0 +1,59 @@
+@import '@/styles/settings/colors';
+
+.main {
+  place-content: center;
+  place-items: center;
+  grid-template:
+    'icon' auto
+    'title' auto
+    'paragraph' auto
+    'button' auto /
+    1fr;
+  gap: 1.2rem;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.icon {
+  grid-area: icon;
+  color: $primary-100;
+  background-color: $bg-200;
+  border-radius: 100vmax;
+  padding: 4rem;
+}
+
+.title {
+  grid-area: title;
+  font-size: 24pt;
+  font-weight: 900;
+  letter-spacing: 0.125rem;
+}
+
+.paragraph {
+  grid-area: paragraph;
+  font-size: 12pt;
+  font-weight: 500;
+  letter-spacing: 0.05rem;
+  color: $text-200;
+}
+
+.button {
+  grid-area: button;
+  font-size: 11pt;
+  font-weight: 500;
+  color: $text-200;
+  background-color: $bg-200;
+  outline-color: $primary-300;
+  border: 1px solid $text-200;
+  border-radius: 1vmin;
+  padding: 0.8rem;
+
+  &:hover {
+    color: $text-100;
+    border-color: $text-100;
+  }
+
+  &:active {
+    scale: 0.9;
+  }
+}
