@@ -40,6 +40,7 @@
   outline-color: $primary-300;
   font-weight: 600;
   transition: color border 100ms ease;
+  user-select: none;
 
   &:hover {
     color: $text-100;
