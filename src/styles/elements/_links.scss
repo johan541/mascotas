@@ -2,5 +2,5 @@
 
 @mixin non-link {
   text-decoration: none;
-  color: $dark;
+  color: currentColor;
 }
