@@ -7,7 +7,7 @@ import { Modal } from '@/components/Modal';
 type PetModel = {
   id: number;
   name: string;
-  birthdate: date;
+  birthdate: Date;
   gender: 'masculino' | 'femenino';
   image: string;
   specie: string;
@@ -26,7 +26,7 @@ const CreateFormModal: React.FC<Props> = ({ isOpen, onClose }) => {
     () => [
       {
         type: 'number',
-        name: 'dni',
+        name: 'id',
         label: 'Identificación',
         obligatory: true,
       },
