@@ -1,0 +1,35 @@
+@import '@/styles/settings/colors';
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(255, 255, 255, 0.75);
+
+  display: grid;
+  place-content: center;
+}
+
+.modal {
+  position: relative;
+  width: clamp(40rem, 40rem, 90vw);
+  border: 1px solid rgb(204, 204, 204);
+  background-color: $bg-200;
+  overflow: auto;
+  border-radius: 4px;
+  outline: 0;
+  padding: 2rem;
+  margin: 4rem 0;
+
+  &::-webkit-scrollbar {
+    width: 1rem;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $accent-100;
+    border-radius: 1rem;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+}

@@ -1,0 +1,72 @@
+@import '@/styles/elements/links';
+@import '@/styles/settings/colors';
+
+.button {
+  @include non-link;
+
+  display: inline-block;
+  padding: 0.8rem 3.2rem;
+  border-radius: 1.2rem;
+  transition: transform 0.25s ease;
+
+  &:active {
+    transform: scale(0.9);
+  }
+}
+
+.fit {
+  font-size: 11pt !important;
+  padding: 0.16rem 0.6rem;
+}
+
+.primary,
+.secondary {
+  font-size: 12pt;
+  font-weight: 600;
+  letter-spacing: 0.07rem;
+  color: $bg-100;
+  border-color: transparent;
+  outline: 0;
+}
+
+.primary {
+  background-color: $primary-100;
+
+  &:hover {
+    transition: box-shadow 400ms;
+    box-shadow: 3px 3px 10px rgba(black, 0.5), -3px -3px 10px rgba(black, 0.5);
+  }
+
+  &-fit {
+    @extend .primary;
+    @extend .fit;
+  }
+}
+
+.secondary {
+  background-color: $primary-200;
+
+  &:hover {
+    transition: box-shadow 400ms;
+    box-shadow: 3px 3px 10px rgba(black, 0.5), -3px -3px 10px rgba(black, 0.5);
+  }
+
+  &-fit {
+    @extend .secondary;
+    @extend .fit;
+  }
+}
+
+.icon {
+  font-size: 18pt;
+  color: black;
+  border-color: transparent;
+  background-color: transparent;
+  padding: 0;
+  outline: 0;
+  cursor: pointer;
+
+  &:hover {
+    filter: drop-shadow(1px 4px 4px rgba(black, 0.75));
+  }
+}
