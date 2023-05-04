@@ -1,13 +1,14 @@
 import { Layout } from '@/components/Layout';
-import { styles } from '@/modules/Home';
-import { SignUpForm } from '@/modules/SignUp';
+import { SignUpForm, styles } from '@/modules/SignUp';
 import type { NextPageWithLayout } from '@/types/next';
 
 const SignUp: NextPageWithLayout = () => {
   return (
     <main className={styles.main}>
-      <h1>Registrar usuario</h1>
-      <SignUpForm />
+      <section className={styles.content}>
+        <h1>Registrar usuario</h1>
+        <SignUpForm />
+      </section>
     </main>
   );
 };

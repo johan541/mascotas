@@ -17,13 +17,13 @@ const LoginForm = () => {
         type: 'text',
         name: 'username',
         label: 'Usuario',
-        obligatory: true,
+        required: true,
       },
       {
         type: 'password',
         name: 'password',
         label: 'Contraseña',
-        obligatory: true,
+        required: true,
       },
     ],
     []
