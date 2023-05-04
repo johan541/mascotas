@@ -10,11 +10,11 @@ const Field: React.FC<FieldContainerProps> = ({
   children,
 }) => {
   return (
-    <label htmlFor={htmlFor} className={styles['content']}>
-      <span className={styles['title']} data-obligatory={obligatory ? 'yes' : 'no'}>
+    <label htmlFor={htmlFor} className={styles.content}>
+      <span className={styles.title} data-obligatory={obligatory ? 'yes' : 'no'}>
         {title}
       </span>
-      {legend ? <span className={styles['legend']}>{legend}</span> : null}
+      {legend ? <span className={styles.legend}>{legend}</span> : null}
       <div className={styles['field-container']}>{children}</div>
     </label>
   );

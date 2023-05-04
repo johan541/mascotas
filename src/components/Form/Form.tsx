@@ -10,12 +10,17 @@ import styles from './Form.module.scss';
 /**
  * This component must be wrapped in a FormProvider of react-hook-form
  */
-function Form<T>({ data, commands, onSubmit, ...props }: FormProps<T>) {
+function Form<T extends Record<string, object>>({
+  data,
+  commands,
+  onSubmit = () => undefined,
+  ...props
+}: FormProps<T>) {
   const { handleSubmit } = useFormContext<T>();
   const formId = useId();
 
   return (
-    <form {...props} onSubmit={handleSubmit(onSubmit)} className={styles['form']}>
+    <form {...props} onSubmit={handleSubmit(onSubmit)} className={styles.form}>
       {data.map((field) => (
         <Field<T> key={`${formId}-${field.name}`} {...field} />
       ))}

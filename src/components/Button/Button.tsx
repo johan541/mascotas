@@ -1,5 +1,4 @@
 import Link, { LinkProps } from 'next/link';
-import { useMemo } from 'react';
 
 import type {
   ButtonAnchorProps,
@@ -24,6 +23,7 @@ const ButtonAux: React.FC<ButtonAuxProps> = ({ children, ...props }) => (
 
 const buttonComponents = new Map<
   ButtonProps['as'],
+  //eslint-disable-next-line @typescript-eslint/no-explicit-any
   ((props: object) => JSX.Element) | React.FC<any>
 >();
 buttonComponents.set('a', ButtonAnchor);

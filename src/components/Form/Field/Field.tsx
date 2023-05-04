@@ -8,6 +8,7 @@ import PhoneField from './PhoneField';
 import SelectField from './SelectField';
 import TextAreaField from './TextAreaField';
 
+//eslint-disable-next-line @typescript-eslint/no-explicit-any
 const fieldComponents = new Map<FieldType, (props: any) => JSX.Element>();
 fieldComponents.set('text', InputField);
 fieldComponents.set('number', InputField);
@@ -27,6 +28,7 @@ function Field<T = object>(props: FieldAttributes<T>): JSX.Element {
       props.type === 'custom'
         ? props.render
         : (fieldComponents.get(props.type) as React.FC<FieldAttributes<T>>),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [props.type]
   );
 
