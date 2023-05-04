@@ -1,12 +1,15 @@
 import { useReducer } from 'react';
-import { useFormContext } from 'react-hook-form';
-import { BsEyeFill, BsEyeSlashFill } from 'react-icons/bs';
+import { FieldValues, useFormContext } from 'react-hook-form';
+import { IconEye, IconEyeOff } from '@tabler/icons-react';
 
 import { PasswordFieldAttributes } from './Field.dto';
 
 import styles from '../Form.module.scss';
 
-function PasswordField<T>({ name, ...props }: PasswordFieldAttributes<T>): JSX.Element {
+function PasswordField<T extends FieldValues>({
+  name,
+  ...props
+}: PasswordFieldAttributes<T>): JSX.Element {
   const [showPassword, handleShowPassword] = useReducer(
     (state: boolean) => !state,
     false
@@ -24,7 +27,7 @@ function PasswordField<T>({ name, ...props }: PasswordFieldAttributes<T>): JSX.E
         id={name}
       />
       <div onClick={handleShowPassword} className={styles['show-password']}>
-        {showPassword ? <BsEyeFill /> : <BsEyeSlashFill />}
+        {showPassword ? <IconEye /> : <IconEyeOff />}
       </div>
     </>
   );
