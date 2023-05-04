@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "@tabler/icons-react": "^2.17.0",
+    "@typegoose/typegoose": "^11.1.0",
+    "mongoose": "^7.1.0",
     "next": "13.3.4",
     "next-auth": "^4.22.1",
     "nookies": "^2.5.2",
