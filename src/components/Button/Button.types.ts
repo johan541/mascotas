@@ -1,13 +1,6 @@
 interface ButtonBaseProps {
   as: 'a' | 'button' | 'input';
-  stylesFor:
-    | 'primary'
-    | 'secondary'
-    | 'floating'
-    | 'icon'
-    | 'cell'
-    | 'primary-fit'
-    | 'secondary-fit';
+  stylesFor: 'primary' | 'secondary' | 'icon' | 'primary-fit' | 'secondary-fit';
   children: React.ReactNode;
 }
 

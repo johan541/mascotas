@@ -1,6 +1,5 @@
-@import '../../styles/palette';
-@import '../../styles/fonts';
-@import '../../styles/mixins';
+@import '@/styles/elements/links';
+@import '@/styles/settings/colors';
 
 .button {
   @include non-link;
@@ -20,41 +19,22 @@
   padding: 0.16rem 0.6rem;
 }
 
-.floating {
-  font: 700 16pt $body-font;
-  color: $white;
-  background-color: $green-complementary;
-  box-shadow: 0 4px 12px $blue-monochromatic;
-  letter-spacing: 0.045rem;
-  transition: all 0.3s ease 0;
-  cursor: pointer;
-
-  &:hover {
-    background-image: linear-gradient(
-      165deg,
-      $green-complementary 55%,
-      $blue-complementary 100%
-    );
-    box-shadow: 0 12px 12px $blue-monochromatic, 0 -4px 14px rgba(0, 43, 77, 60%);
-  }
-}
-
 .primary,
 .secondary {
-  font: 600 12pt $body-font;
+  font-size: 12pt;
+  font-weight: 600;
   letter-spacing: 0.07rem;
-  color: $white;
+  color: $bg-100;
   border-color: transparent;
   outline: 0;
 }
 
 .primary {
-  background-color: $blue;
+  background-color: $primary-100;
 
   &:hover {
     transition: box-shadow 400ms;
-    box-shadow: 3px 3px 10px rgba($blue-analogous, 0.5),
-      -3px -3px 10px rgba($blue-analogous, 0.5);
+    box-shadow: 3px 3px 10px rgba(black, 0.5), -3px -3px 10px rgba(black, 0.5);
   }
 
   &-fit {
@@ -64,12 +44,11 @@
 }
 
 .secondary {
-  background-color: $green-complementary;
+  background-color: $primary-200;
 
   &:hover {
     transition: box-shadow 400ms;
-    box-shadow: 3px 3px 10px rgba($green-complementary, 0.5),
-      -3px -3px 10px rgba($green-complementary, 0.5);
+    box-shadow: 3px 3px 10px rgba(black, 0.5), -3px -3px 10px rgba(black, 0.5);
   }
 
   &-fit {
@@ -80,7 +59,7 @@
 
 .icon {
   font-size: 18pt;
-  color: $black;
+  color: black;
   border-color: transparent;
   background-color: transparent;
   padding: 0;
@@ -88,28 +67,6 @@
   cursor: pointer;
 
   &:hover {
-    filter: drop-shadow(1px 4px 4px rgba($blue-monochromatic, 0.75));
-  }
-}
-
-.cell {
-  font-size: 12pt;
-  line-height: 0;
-  color: $green-blue-monochromatic;
-  background-color: $green-blue-light-shade;
-  border: 1px solid $green-blue;
-  border-radius: 5px;
-  outline: 0;
-  padding: 0.4rem;
-  cursor: pointer;
-  transition: box-shadow 100ms ease-in;
-
-  &:hover {
-    box-shadow: 1px 1px 1px 2px rgba(0, 0, 0, 0.25);
-  }
-
-  &:active {
-    box-shadow: 1px 1px 0 1px rgba(0, 0, 0, 0.25);
-    transform: scale(0.9);
+    filter: drop-shadow(1px 4px 4px rgba(black, 0.75));
   }
 }

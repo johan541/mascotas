@@ -1,5 +1,5 @@
 import { useId } from 'react';
-import { useFormContext } from 'react-hook-form';
+import { FieldValues, useFormContext } from 'react-hook-form';
 
 import Commands from './Commands';
 import Field from './Field';
@@ -10,7 +10,7 @@ import styles from './Form.module.scss';
 /**
  * This component must be wrapped in a FormProvider of react-hook-form
  */
-function Form<T extends Record<string, object>>({
+function Form<T extends FieldValues>({
   data,
   commands,
   onSubmit = () => undefined,
