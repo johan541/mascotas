@@ -6,7 +6,7 @@ const SignUp: NextPageWithLayout = () => {
   return (
     <main className={styles.main}>
       <section className={styles.content}>
-        <h1>Registrar usuario</h1>
+        <h1 className={styles.title}>Registrar usuario</h1>
         <SignUpForm />
       </section>
     </main>

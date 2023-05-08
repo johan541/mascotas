@@ -1,0 +1,13 @@
+@import '@/styles/settings/colors';
+
+@mixin container {
+  width: 50%;
+  height: fit-content;
+  justify-self: center;
+  align-self: start;
+  margin-bottom: 2rem !important;
+  padding: 2rem 2rem;
+  border: 2px solid $accent-100;
+  border-radius: 5vmin;
+  background-color: $bg-200;
+}

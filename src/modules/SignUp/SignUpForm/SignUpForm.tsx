@@ -63,6 +63,7 @@ const SignUpForm = () => {
         label: 'Genero',
         required: true,
         options: [
+          { label: '- Seleccionar genero -', value: 'none' },
           { label: 'Masculino', value: 'masculino' },
           { label: 'Femenino', value: 'femenino' },
         ],
@@ -80,6 +81,7 @@ const SignUpForm = () => {
         label: 'Tipo de documento',
         required: true,
         options: [
+          { label: '- Seleccionar documento -', value: 'none' },
           { label: 'T.I.', value: 'T.I.' },
           { label: 'C.C.', value: 'C.C.' },
           { label: 'C.E.', value: 'C.E.' },

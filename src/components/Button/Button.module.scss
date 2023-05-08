@@ -24,18 +24,13 @@
   font-size: 12pt;
   font-weight: 600;
   letter-spacing: 0.07rem;
-  color: $bg-100;
+  color: $text-100;
   border-color: transparent;
   outline: 0;
 }
 
 .primary {
   background-color: $primary-100;
-
-  &:hover {
-    transition: box-shadow 400ms;
-    box-shadow: 3px 3px 10px rgba(black, 0.5), -3px -3px 10px rgba(black, 0.5);
-  }
 
   &-fit {
     @extend .primary;
@@ -45,11 +40,6 @@
 
 .secondary {
   background-color: $primary-200;
-
-  &:hover {
-    transition: box-shadow 400ms;
-    box-shadow: 3px 3px 10px rgba(black, 0.5), -3px -3px 10px rgba(black, 0.5);
-  }
 
   &-fit {
     @extend .secondary;

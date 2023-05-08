@@ -6,7 +6,7 @@ const Login: NextPageWithLayout = () => {
   return (
     <main className={styles.main}>
       <section className={styles.content}>
-        <h1>Iniciar sesión</h1>
+        <h1 className={styles.title}>Iniciar sesión</h1>
         <LoginForm />
       </section>
     </main>
