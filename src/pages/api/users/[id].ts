@@ -21,9 +21,7 @@ type UserResponse = User | User[] | Message;
 
 const handler: NextApiHandler<UserResponse> = async (req, res) => {
   if (req.method === 'GET') {
-    await userController.getAll(req, res);
-  } else if (req.method === 'POST') {
-    await userController.create(req, res);
+    await userController.getById(req, res);
   } else {
     res.status(405).json({ message: 'Método no permitido' });
   }

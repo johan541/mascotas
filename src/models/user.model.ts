@@ -9,7 +9,7 @@ export class User {
   @prop({ required: true, trim: true, lowercase: true, unique: true })
   username: string;
 
-  @prop({ required: true, trim: true })
+  @prop({ required: true, trim: true, select: false })
   password: string;
 
   @prop({ required: true, default: true })

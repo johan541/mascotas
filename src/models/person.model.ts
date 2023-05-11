@@ -15,7 +15,7 @@ enum DocumentType {
 @modelOptions({ schemaOptions: { timestamps: true } })
 export class Person {
   @prop({ options: { id: true } })
-  dni: number;
+  dni: string;
 
   @prop({ required: true, trim: true })
   name: string;
