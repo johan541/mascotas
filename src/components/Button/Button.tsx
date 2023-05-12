@@ -9,15 +9,21 @@ import type {
 
 import styles from './Button.module.scss';
 
-const ButtonAnchor: React.FC<ButtonAnchorProps> = ({ children, ...props }) => (
-  <Link {...(props as LinkProps)}>{children}</Link>
-);
+const ButtonAnchor: React.FC<ButtonAnchorProps> = ({
+  as,
+  stylesFor,
+  children,
+  ...props
+}) => <Link {...(props as LinkProps)}>{children}</Link>;
 
-const ButtonInput: React.FC<ButtonInputProps> = ({ children, ...props }) => (
-  <input {...props} value={children?.toString()} />
-);
+const ButtonInput: React.FC<ButtonInputProps> = ({
+  as,
+  stylesFor,
+  children,
+  ...props
+}) => <input {...props} value={children?.toString()} />;
 
-const ButtonAux: React.FC<ButtonAuxProps> = ({ children, ...props }) => (
+const ButtonAux: React.FC<ButtonAuxProps> = ({ as, stylesFor, children, ...props }) => (
   <button {...props}>{children}</button>
 );
 
