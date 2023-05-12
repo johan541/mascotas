@@ -1,8 +1,10 @@
 import Head from 'next/head';
+import { ToastContainer } from 'react-toastify';
 
 import type { AppPropsWithLayout } from '@/types/next';
 
 import 'normalize.css';
+import 'react-toastify/dist/ReactToastify.min.css';
 import '@/styles/globals.scss';
 
 export default function App({ Component, pageProps }: AppPropsWithLayout) {
@@ -20,6 +22,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
       </Head>
 
       {getLayout(<Component {...pageProps} />)}
+      <ToastContainer />
     </>
   );
 }
