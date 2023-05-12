@@ -1,29 +1,24 @@
-import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
-import { type CommandAttributes, Form, type FieldAttributes } from '@/components/Form';
-import styles from './SignUpForm.module.scss';
 import { useMemo } from 'react';
+import { FormProvider, type SubmitHandler, useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
 
-type RegistrationModel = {
-  dni: number;
-  name: string;
-  surname: string;
-  address: string;
-  email: string;
-  phone: number;
-  gender: 'masculino' | 'femenino';
-  birthdate: Date;
-  documentType: 'T.I.' | 'C.C.' | 'C.E.';
-  username: string;
-  password: string;
-};
+import { createPerson } from '@/api/people.api';
+import { createUser } from '@/api/users.api';
+import { type CommandAttributes, Form, type FieldAttributes } from '@/components/Form';
+import type { PersonCreate } from '@/schemas/person.schema';
+import type { UserCreate } from '@/schemas/user.schema';
+import { formattedDateForInput, subtractYears } from '@/utils/date';
+import { getToastConfig } from '@/helpers/toast.config';
+
+type RegistrationValues = UserCreate & PersonCreate;
 
 const SignUpForm = () => {
-  const formMethods = useForm<RegistrationModel>();
+  const formMethods = useForm<RegistrationValues>();
 
-  const data = useMemo<FieldAttributes<RegistrationModel>[]>(
+  const data = useMemo<FieldAttributes<RegistrationValues>[]>(
     () => [
       {
-        type: 'number',
+        type: 'text',
         name: 'dni',
         label: 'Identificación',
         required: true,
@@ -52,7 +47,7 @@ const SignUpForm = () => {
         required: true,
       },
       {
-        type: 'number',
+        type: 'phone',
         name: 'phone',
         label: 'Teléfono',
         required: true,
@@ -72,7 +67,7 @@ const SignUpForm = () => {
         type: 'date',
         name: 'birthdate',
         label: 'Fecha de nacimiento',
-        max: new Date().setFullYear(new Date().getFullYear() - 14),
+        max: formattedDateForInput(subtractYears(14)),
         required: true,
       },
       {
@@ -111,13 +106,21 @@ const SignUpForm = () => {
     []
   );
 
-  const handleLogin: SubmitHandler<RegistrationModel> = async (dataForm) => {
-    console.log(dataForm);
+  const handleLogin: SubmitHandler<RegistrationValues> = async (formData) => {
+    try {
+      const personData: PersonCreate = formData;
+      const userData: UserCreate = formData;
+
+      await createPerson(personData);
+      await createUser(userData);
+    } catch (error) {
+      toast.error<string>((error as Error).message, getToastConfig());
+    }
   };
 
   return (
-    <FormProvider<RegistrationModel> {...formMethods}>
-      <Form<RegistrationModel> data={data} commands={commands} onSubmit={handleLogin} />
+    <FormProvider<RegistrationValues> {...formMethods}>
+      <Form<RegistrationValues> data={data} commands={commands} onSubmit={handleLogin} />
     </FormProvider>
   );
 };

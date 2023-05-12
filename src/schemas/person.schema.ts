@@ -2,6 +2,7 @@ export type PersonSchema = {
   readonly dni: string;
   readonly name: string;
   readonly surname: string;
+  readonly address: string;
   readonly email: string;
   readonly phone: number;
   readonly gender: 'masculino' | 'femenino';
@@ -10,3 +11,5 @@ export type PersonSchema = {
   readonly createdAt: Date;
   readonly modifiedAt: Date;
 };
+
+export type PersonCreate = Omit<PersonSchema, 'createdAt' | 'modifiedAt'>;
