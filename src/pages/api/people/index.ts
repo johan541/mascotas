@@ -1,15 +1,11 @@
 import type { NextApiHandler } from 'next';
 
-import { PersonController } from '@/controllers/person.controller';
+import { personController } from '@/lib/dependencies';
 import { Person } from '@/models/person.model';
-import { PersonRepository } from '@/repositories';
 import { Message } from '@/schemas/message.schema';
 import { dbConnect } from '@/utils/mongoose';
 
 dbConnect();
-
-const personRepository = new PersonRepository();
-const personController = new PersonController(personRepository);
 
 type PersonResponse = Person | Person[] | Message;
 
