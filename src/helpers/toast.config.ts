@@ -6,7 +6,7 @@ export function getToastConfig(position = toast.POSITION.BOTTOM_RIGHT): ToastOpt
   return {
     position,
     className: styles.toast,
-    theme: 'dark',
+    theme: 'light',
   } as const;
 }
 
