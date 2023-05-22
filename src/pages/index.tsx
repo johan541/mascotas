@@ -24,6 +24,7 @@ const Home: NextPageWithLayout = () => {
         className={styles.image}
         width={290}
         height={494}
+        priority
       />
     </main>
   );
