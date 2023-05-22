@@ -37,6 +37,7 @@
     "eslint-config-next": "^13.3.0",
     "eslint-config-node": "^4.1.0",
     "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-mocha-no-only": "^1.1.1",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^4.2.1",
     "prettier": "^2.8.7",
