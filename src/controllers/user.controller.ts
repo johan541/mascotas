@@ -1,9 +1,10 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
+import { generateHash, verifyPassword } from '@/lib/security/pwd';
 import { User } from '@/models/user.model';
 import { UserRepository, RoleRepository, PersonRepository } from '@/repositories';
 import { Message } from '@/schemas/message.schema';
-import { UserCreate, UserSchema } from '@/schemas/user.schema';
+import { UserCreate, UserLogin, UserSchema } from '@/schemas/user.schema';
 import { IController } from './interfaces';
 
 export class UserController implements IController<User | UserSchema> {
@@ -56,10 +57,17 @@ export class UserController implements IController<User | UserSchema> {
         return res.status(404).json({ message: 'Rol no encontrado' });
       }
 
-      const newUser: User = { username, password, person: person._id, role: role._id };
+      const hashedPassword = await generateHash(password);
+      const newUser: User = {
+        username,
+        password: hashedPassword,
+        person: person._id,
+        role: role._id,
+      };
       const createdUser = await this.userRepository.create(newUser);
+      const { password: pwd, ...userNoPwd } = createdUser.toObject();
 
-      res.status(201).json(createdUser);
+      res.status(201).json(userNoPwd);
     } catch (error) {
       if (error instanceof Error) {
         res.status(400).json({ message: error.message });
@@ -101,5 +109,31 @@ export class UserController implements IController<User | UserSchema> {
       return res.status(404).json({ message: 'Usuario no encontrado' });
     }
     res.status(204).send();
+  }
+
+  public async login(credentials: UserLogin): Promise<UserSchema> {
+    const { username, password } = credentials;
+    const user = await this.userRepository.findOne({ username });
+
+    if (!user) {
+      throw new Error('Usuario no encontrado');
+    }
+
+    if (!user.isActive) {
+      throw new Error('Usuario inactivo');
+    }
+
+    const isValidPassword = await verifyPassword(password, user.password ?? '');
+
+    if (!isValidPassword) {
+      throw new Error('Contraseña incorrecta');
+    }
+
+    return user.toObject<UserSchema>({
+      transform(doc, ret) {
+        delete ret.password;
+        return ret;
+      },
+    });
   }
 }

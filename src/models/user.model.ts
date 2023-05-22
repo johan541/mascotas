@@ -9,10 +9,10 @@ export class User {
   @prop({ required: true, trim: true, lowercase: true, unique: true })
   username: string;
 
-  @prop({ required: true, trim: true, select: false })
-  password: string;
+  @prop({ trim: true })
+  password?: string;
 
-  @prop({ required: true, default: true })
+  @prop({ default: true })
   isActive?: boolean;
 
   @prop({ required: true, ref: () => Person })

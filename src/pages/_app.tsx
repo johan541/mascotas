@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import { SessionProvider } from 'next-auth/react';
 import { ToastContainer } from 'react-toastify';
 
 import type { AppPropsWithLayout } from '@/types/next';
@@ -21,7 +22,9 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
         <link rel='shortcut icon' href='favicon.svg' type='image/svg+xml' />
       </Head>
 
-      {getLayout(<Component {...pageProps} />)}
+      <SessionProvider session={pageProps.session}>
+        {getLayout(<Component {...pageProps} />)}
+      </SessionProvider>
       <ToastContainer />
     </>
   );

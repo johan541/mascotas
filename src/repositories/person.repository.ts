@@ -1,3 +1,4 @@
+import type { FilterQuery, ProjectionType, Types } from 'mongoose';
 import type { DocumentType } from '@typegoose/typegoose';
 
 import { Person, PersonModel } from '@/models/person.model';
@@ -8,12 +9,17 @@ export class PersonRepository implements IRepository<Person> {
     return PersonModel.find();
   }
 
-  public async findById(id: string): Promise<DocumentType<Person> | null> {
+  public async findById(
+    id: Types.ObjectId | string
+  ): Promise<DocumentType<Person> | null> {
     return PersonModel.findById(id);
   }
 
-  public async findOne(filter: Partial<Person>): Promise<DocumentType<Person> | null> {
-    return PersonModel.findOne(filter);
+  public async findOne(
+    filter: FilterQuery<Person>,
+    projection?: ProjectionType<Person>
+  ): Promise<DocumentType<Person> | null> {
+    return PersonModel.findOne(filter, projection);
   }
 
   public async create(person: Person): Promise<DocumentType<Person>> {
@@ -21,13 +27,13 @@ export class PersonRepository implements IRepository<Person> {
   }
 
   public async update(
-    id: string,
+    id: Types.ObjectId | string,
     person: Partial<Person>
   ): Promise<DocumentType<Person> | null> {
     return PersonModel.findByIdAndUpdate(id, person, { new: true });
   }
 
-  public async delete(id: string): Promise<boolean> {
+  public async delete(id: Types.ObjectId | string): Promise<boolean> {
     const result = await PersonModel.findByIdAndDelete(id);
     return result !== null;
   }

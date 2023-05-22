@@ -1,12 +1,12 @@
 /* eslint-disable indent */
 import { prop, modelOptions, getModelForClass } from '@typegoose/typegoose';
 
-enum Gender {
+export enum Gender {
   MALE = 'masculino',
   FEMALE = 'femenino',
 }
 
-enum DocumentType {
+export enum DocumentType {
   TI = 'T.I.',
   CC = 'C.C.',
   CE = 'C.E.',
