@@ -8,7 +8,11 @@ import styles from './Layout.module.scss';
 type Props = {
   readonly title?: string;
 } & PropsWithChildren;
+
 const Layout: FC<Props> = ({ title, children }) => {
+  const pageTitle = title && `${title} | `;
+  const titleWithBrand = `${pageTitle || ''}Adopción de mascotas`;
+
   useEffect(() => {
     const rootElement = document.getElementById('__next');
     rootElement?.classList.add(styles.layout);
@@ -21,7 +25,7 @@ const Layout: FC<Props> = ({ title, children }) => {
   return (
     <>
       <Head>
-        <title>{title ? `${title} | ` : ''}Adopción de mascotas</title>
+        <title>{titleWithBrand}</title>
       </Head>
       <NavBar />
       {children}
