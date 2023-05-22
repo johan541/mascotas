@@ -1,11 +1,12 @@
-import { Layout } from '@/components/Layout';
+import { AuthLayout } from '@/components/Layout';
 import { useModal } from '@/components/Modal';
 import { styles } from '@/modules/Home';
 import { CreateFormModal } from '@/modules/Pets';
 import type { NextPageWithLayout } from '@/types/next';
 
-const Home: NextPageWithLayout = () => {
+const Pets: NextPageWithLayout = () => {
   const [isCreateModal, openCreateModal, closeCreateModal] = useModal();
+
   return (
     <main className={styles.main}>
       <h1>Adopción de mascotas</h1>
@@ -17,8 +18,8 @@ const Home: NextPageWithLayout = () => {
   );
 };
 
-Home.getLayout = function getLayout(page) {
-  return <Layout>{page}</Layout>;
+Pets.getLayout = function getLayout(page) {
+  return <AuthLayout>{page}</AuthLayout>;
 };
 
-export default Home;
+export default Pets;

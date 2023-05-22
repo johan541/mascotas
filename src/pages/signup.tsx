@@ -1,4 +1,4 @@
-import { Layout } from '@/components/Layout';
+import { SignLayout } from '@/components/Layout';
 import { SignUpForm, styles } from '@/modules/SignUp';
 import type { NextPageWithLayout } from '@/types/next';
 
@@ -14,7 +14,7 @@ const SignUp: NextPageWithLayout = () => {
 };
 
 SignUp.getLayout = function getLayout(page) {
-  return <Layout title='Registrar usuario'>{page}</Layout>;
+  return <SignLayout title='Registrar usuario'>{page}</SignLayout>;
 };
 
 export default SignUp;
