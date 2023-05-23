@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import type { NextApiRequest, NextApiResponse } from 'next';
 import NextAuth, { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
 import { AuthRoutes, Routes } from '@/helpers/routes';
 import { userController } from '@/lib/dependencies';
-import { type UserLogin, UserSchema } from '@/schemas/user.schema';
+import { type UserLogin } from '@/schemas/user.schema';
 import { signJwtAccessToken } from '@/lib/security/jwt';
 import { dbConnect } from '@/utils/mongoose';
 
@@ -31,9 +32,12 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
     ],
     callbacks: {
       async jwt({ token, user }) {
-        if (user instanceof UserSchema) {
+        if (user) {
+          // @ts-ignore: next-line
           const accessToken = signJwtAccessToken({ sub: user.username });
-          return { tokenType: 'Bearer', accessToken, user };
+          token.accessToken = accessToken;
+          // @ts-ignore: next-line
+          token.user = user;
         }
         return token;
       },

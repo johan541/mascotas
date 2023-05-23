@@ -2,16 +2,17 @@ import { Token } from '@/schemas/token.schema';
 import { UserSchema } from '@/schemas/user.schema';
 
 declare module 'next-auth' {
-  type User = UserSchema;
-
   interface Session {
     user: UserSchema;
     token: Token['accessToken'];
   }
+
+  type User = UserSchema;
 }
 
 declare module 'next-auth/jwt' {
-  type JWT = Token & {
+  interface JWT {
     user: UserSchema;
-  };
+    accessToken: Token['accessToken'];
+  }
 }

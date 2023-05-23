@@ -93,9 +93,14 @@
     color: $text-200;
     outline-color: $primary-300;
     font-weight: 600;
+    letter-spacing: .8px;
   }
 
   & > .arrow {
     color: $primary-300;
+
+    &:active {
+      scale: 0.9;
+    }
   }
 }
