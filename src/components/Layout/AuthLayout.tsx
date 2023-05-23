@@ -42,7 +42,7 @@ const AuthLayout: FC<Props> = ({
         <Head>
           <title>{titleWithBrand(title)}</title>
         </Head>
-        <NavBar />
+        <NavBar sessionStatus={status} />
         {children}
       </>
     );

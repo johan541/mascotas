@@ -2,11 +2,17 @@ import { memo } from 'react';
 import { IconPaw } from '@tabler/icons-react';
 
 import { NavLink } from '@/components/NavLink';
-import { Routes, AuthRoutes } from '@/helpers/routes';
+import { Routes } from '@/helpers/routes';
+import AuthBar from './AuthBar';
+import UnAuthBar from './UnAuthBar';
 
 import styles from './NavBar.module.scss';
 
-const NavBar: React.FC = () => {
+type Props = {
+  readonly sessionStatus?: 'authenticated' | 'unauthenticated' | 'loading';
+};
+
+const NavBar: React.FC<Props> = ({ sessionStatus = 'unauthenticated' }) => {
   return (
     <nav className={styles.navbar}>
       <NavLink
@@ -30,18 +36,7 @@ const NavBar: React.FC = () => {
         ))}
       </ul>
 
-      <ul className={`${styles.navigation} ${styles.auth}`}>
-        {Object.values(AuthRoutes).map(({ name, path }) => (
-          <li key={name} className={styles.item}>
-            <NavLink
-              href={path}
-              className={(active) => `${styles.link} ${active && styles.active}`}
-            >
-              {name}
-            </NavLink>
-          </li>
-        ))}
-      </ul>
+      {sessionStatus === 'authenticated' ? <AuthBar /> : <UnAuthBar />}
     </nav>
   );
 };

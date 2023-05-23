@@ -80,3 +80,22 @@
     }
   }
 }
+
+.session {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.6rem;
+
+  & > .username {
+    font-size: 12pt;
+    color: $text-200;
+    outline-color: $primary-300;
+    font-weight: 600;
+  }
+
+  & > .arrow {
+    color: $primary-300;
+  }
+}

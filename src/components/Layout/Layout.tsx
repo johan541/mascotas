@@ -1,7 +1,9 @@
 import Head from 'next/head';
+import { useSession } from 'next-auth/react';
 import { type FC, type PropsWithChildren, useEffect } from 'react';
 
 import { NavBar } from '@/components/NavBar';
+import { titleWithBrand } from './commons';
 
 import styles from './Layout.module.scss';
 
@@ -9,9 +11,8 @@ type Props = {
   readonly title?: string;
 } & PropsWithChildren;
 
-const Layout: FC<Props> = ({ title, children }) => {
-  const pageTitle = title && `${title} | `;
-  const titleWithBrand = `${pageTitle || ''}Adopción de mascotas`;
+const Layout: FC<Props> = ({ title = '', children }) => {
+  const { status } = useSession();
 
   useEffect(() => {
     const rootElement = document.getElementById('__next');
@@ -25,9 +26,9 @@ const Layout: FC<Props> = ({ title, children }) => {
   return (
     <>
       <Head>
-        <title>{titleWithBrand}</title>
+        <title>{titleWithBrand(title)}</title>
       </Head>
-      <NavBar />
+      <NavBar sessionStatus={status} />
       {children}
     </>
   );
