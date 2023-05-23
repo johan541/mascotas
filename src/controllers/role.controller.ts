@@ -75,7 +75,7 @@ export class RoleController implements IController<Role> {
     const { id } = req.query;
     const role = await this.roleRepository.delete(id as string);
     if (!role) {
-      return res.status(404).json({ message: 'Usuario no encontrado' });
+      return res.status(404).json({ message: 'Role no encontrado' });
     }
     res.status(204).send();
   }
