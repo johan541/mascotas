@@ -1,13 +1,23 @@
-import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
-import { type CommandAttributes, Form, type FieldAttributes } from '@/components/Form';
-import styles from './CreateFormModal.module.scss';
+import { useRouter } from 'next/router';
 import React, { useMemo } from 'react';
-import { Modal } from '@/components/Modal';
+import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
 
-type PetModel = {
+import { createPet } from '@/api/pets.api';
+import { createSpeciesBreed } from '@/api/speciesBreed.api';
+import { type CommandAttributes, Form, type FieldAttributes } from '@/components/Form';
+import { Modal } from '@/components/Modal';
+import { getToastConfig } from '@/helpers/toast.config';
+import { Gender } from '@/models/person.model';
+import { PetCreate } from '@/schemas/pet.schema';
+import { SpeciesBreedCreate } from '@/schemas/speciesBreed.schema';
+
+import styles from './CreateFormModal.module.scss';
+
+type PetValues = {
   name: string;
   birthdate?: Date;
-  gender: 'masculino' | 'femenino';
+  gender: Gender;
   specie: string;
   breed: string;
 };
@@ -18,9 +28,10 @@ type Props = {
 };
 
 const CreateFormModal: React.FC<Props> = ({ isOpen, onClose }) => {
-  const formMethods = useForm<PetModel>();
+  const router = useRouter();
+  const formMethods = useForm<PetValues>();
 
-  const data = useMemo<FieldAttributes<PetModel>[]>(
+  const data = useMemo<FieldAttributes<PetValues>[]>(
     () => [
       {
         type: 'text',
@@ -72,8 +83,24 @@ const CreateFormModal: React.FC<Props> = ({ isOpen, onClose }) => {
     onClose();
   };
 
-  const handleCreate: SubmitHandler<PetModel> = async (dataForm) => {
-    console.log(dataForm);
+  const handleCreate: SubmitHandler<PetValues> = async (formData) => {
+    try {
+      const speciesBreedData: SpeciesBreedCreate = formData;
+      const speciesBreed = await createSpeciesBreed(speciesBreedData);
+
+      const petData: PetCreate = {
+        name: formData.name,
+        birthdate: formData.birthdate,
+        gender: formData.gender,
+        speciesBreed: speciesBreed._id,
+      };
+      await createPet(petData);
+
+      handleClose();
+      router.replace(router.asPath);
+    } catch (error) {
+      toast.error<string>((error as Error).message, getToastConfig());
+    }
   };
 
   return (
@@ -83,8 +110,8 @@ const CreateFormModal: React.FC<Props> = ({ isOpen, onClose }) => {
       contentLabel='Modal para registrar mascotas'
     >
       <h2 className={styles.title}>Registrar mascota</h2>
-      <FormProvider<PetModel> {...formMethods}>
-        <Form<PetModel>
+      <FormProvider<PetValues> {...formMethods}>
+        <Form<PetValues>
           data={data}
           commands={commands}
           onSubmit={handleCreate}

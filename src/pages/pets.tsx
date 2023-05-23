@@ -1,7 +1,6 @@
 import { AuthLayout } from '@/components/Layout';
 import { useModal } from '@/components/Modal';
-import { styles } from '@/modules/Pets';
-import { CreateFormModal } from '@/modules/Pets';
+import { CreateFormModal, styles } from '@/modules/Pets';
 import type { NextPageWithLayout } from '@/types/next';
 
 const Pets: NextPageWithLayout = () => {
@@ -12,7 +11,7 @@ const Pets: NextPageWithLayout = () => {
       <h1 className={styles.title}>
         Encuentra tu mejor amigo:
         <br />
-        Explora nuestra Galería de Adopción
+        Explorando nuestra Galería de Adopción
       </h1>
       <button className={styles.button} onClick={openCreateModal}>
         Dar en adopción
