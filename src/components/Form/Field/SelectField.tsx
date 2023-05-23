@@ -7,6 +7,7 @@ import styles from '../Form.module.scss';
 function SelectField<T>({
   name,
   options,
+  obligatory,
   ...props
 }: SelectFieldAttributes<T>): JSX.Element {
   const { register } = useFormContext();

@@ -4,7 +4,12 @@ import type { InputFieldAttributes } from './Field.dto';
 
 import styles from '../Form.module.scss';
 
-function InputField<T>({ name, type, ...props }: InputFieldAttributes<T>): JSX.Element {
+function InputField<T>({
+  name,
+  type,
+  obligatory,
+  ...props
+}: InputFieldAttributes<T>): JSX.Element {
   const { register } = useFormContext();
 
   return (
