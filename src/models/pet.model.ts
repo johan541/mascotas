@@ -14,7 +14,7 @@ export class Pet {
   name: string;
 
   @prop()
-  birthdate: Date;
+  birthdate?: Date;
 
   @prop({ required: true, enum: Gender })
   gender: Gender;

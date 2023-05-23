@@ -3,7 +3,7 @@ import axios from 'axios';
 import type { PetCreate, PetSchema } from '@/schemas/pet.schema';
 import { withAxiosHandler } from './commons';
 
-const ENDPOINT = '/api/pet';
+const ENDPOINT = '/api/pets';
 
 export const getAll = withAxiosHandler(async () => axios.get<PetSchema[]>(ENDPOINT));
 

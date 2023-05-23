@@ -6,18 +6,39 @@ import { IRepository } from './interfaces';
 
 export class PetRepository implements IRepository<Pet> {
   public async findAll(): Promise<DocumentType<Pet>[]> {
-    return PetModel.find();
+    return PetModel.find().populate({
+      path: 'speciesBreed',
+      model: 'SpeciesBreed',
+      populate: [
+        { path: 'specie', model: 'Specie' },
+        { path: 'breed', model: 'Breed' },
+      ],
+    });
   }
 
   public async findById(id: Types.ObjectId | string): Promise<DocumentType<Pet> | null> {
-    return PetModel.findById(id);
+    return PetModel.findById(id).populate({
+      path: 'speciesBreed',
+      model: 'SpeciesBreed',
+      populate: [
+        { path: 'specie', model: 'Specie' },
+        { path: 'breed', model: 'Breed' },
+      ],
+    });
   }
 
   public async findOne(
     filter: FilterQuery<Pet>,
     projection?: ProjectionType<Pet>
   ): Promise<DocumentType<Pet> | null> {
-    return PetModel.findOne(filter, projection);
+    return PetModel.findOne(filter, projection).populate({
+      path: 'speciesBreed',
+      model: 'SpeciesBreed',
+      populate: [
+        { path: 'specie', model: 'Specie' },
+        { path: 'breed', model: 'Breed' },
+      ],
+    });
   }
 
   public async create(pet: Pet): Promise<DocumentType<Pet>> {
