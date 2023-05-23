@@ -5,11 +5,9 @@ import React, { useMemo } from 'react';
 import { Modal } from '@/components/Modal';
 
 type PetModel = {
-  id: number;
   name: string;
-  birthdate: Date;
+  birthdate?: Date;
   gender: 'masculino' | 'femenino';
-  image: string;
   specie: string;
   breed: string;
 };
@@ -25,23 +23,15 @@ const CreateFormModal: React.FC<Props> = ({ isOpen, onClose }) => {
   const data = useMemo<FieldAttributes<PetModel>[]>(
     () => [
       {
-        type: 'number',
-        name: 'id',
-        label: 'Identificación',
-        obligatory: true,
-      },
-      {
         type: 'text',
         name: 'name',
-        label: 'Nombres mascota',
+        label: 'Nombre de la mascota',
         obligatory: true,
       },
       {
         type: 'date',
         name: 'birthdate',
         label: 'Fecha de nacimiento',
-        max: new Date().setFullYear(new Date().getFullYear() - 14),
-        obligatory: true,
       },
       {
         type: 'select',
@@ -55,12 +45,6 @@ const CreateFormModal: React.FC<Props> = ({ isOpen, onClose }) => {
       },
       {
         type: 'text',
-        name: 'image',
-        label: 'Imagen mascota',
-        obligatory: true,
-      },
-      {
-        type: 'text',
         name: 'specie',
         label: 'Especie',
         obligatory: true,
@@ -68,7 +52,7 @@ const CreateFormModal: React.FC<Props> = ({ isOpen, onClose }) => {
       {
         type: 'text',
         name: 'breed',
-        label: 'Raza mascota',
+        label: 'Raza',
         obligatory: true,
       },
     ],

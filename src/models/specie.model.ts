@@ -2,7 +2,7 @@
 import { prop, getModelForClass } from '@typegoose/typegoose';
 
 export class Specie {
-  @prop({ required: true, trim: true, unique: true })
+  @prop({ required: true, trim: true, lowercase: true, unique: true })
   name: string;
 }
 

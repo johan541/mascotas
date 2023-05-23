@@ -13,7 +13,7 @@ export class Pet {
   @prop({ required: true, trim: true })
   name: string;
 
-  @prop({ required: true })
+  @prop()
   birthdate: Date;
 
   @prop({ required: true, enum: Gender })

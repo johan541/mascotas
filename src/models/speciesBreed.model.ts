@@ -1,8 +1,8 @@
 /* eslint-disable indent */
-import { prop, modelOptions, getModelForClass, type Ref } from '@typegoose/typegoose';
+import { prop, getModelForClass, type Ref } from '@typegoose/typegoose';
 import { Specie } from './specie.model';
 import { Breed } from './breed.model';
-@modelOptions({ schemaOptions: { timestamps: true } })
+
 export class SpeciesBreed {
   @prop({ required: true, ref: () => Specie })
   specie: Ref<Specie>;
@@ -10,4 +10,5 @@ export class SpeciesBreed {
   @prop({ required: true, ref: () => Breed })
   breed: Ref<Breed>;
 }
-export const SpecieBreedModel = getModelForClass(SpeciesBreed);
+
+export const SpeciesBreedModel = getModelForClass(SpeciesBreed);
