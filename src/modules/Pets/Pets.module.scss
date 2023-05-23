@@ -2,7 +2,11 @@
 @import '@/styles/settings/colors';
 
 .main {
-  align-content: start;
+  display: flex !important;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 1.2rem;
 }
 
 .title {
@@ -12,9 +16,7 @@
 
 .button {
   @include non-link;
-  grid-area: button;
-  justify-self: center;
-  align-self: start;
+  align-self: flex-end;
   font-size: 12pt;
   font-weight: 500;
   background-color: $primary-100;

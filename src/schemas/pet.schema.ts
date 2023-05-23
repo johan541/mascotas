@@ -6,7 +6,7 @@ export type PetSchema = {
   readonly name: string;
   readonly birthdate?: Date;
   readonly gender: Gender;
-  readonly speciesBreed: SpeciesBreedSchema[];
+  readonly speciesBreed: SpeciesBreedSchema;
   readonly createdAt: Date;
   readonly modifiedAt: Date;
 };

@@ -1,9 +1,17 @@
+import type { GetServerSideProps } from 'next';
+
+import { getAllPets } from '@/api/pets.api';
 import { AuthLayout } from '@/components/Layout';
 import { useModal } from '@/components/Modal';
-import { CreateFormModal, styles } from '@/modules/Pets';
+import { CreateFormModal, Gallery, styles } from '@/modules/Pets';
+import { PetSchema } from '@/schemas/pet.schema';
 import type { NextPageWithLayout } from '@/types/next';
 
-const Pets: NextPageWithLayout = () => {
+type DataProps = {
+  readonly pets: PetSchema[];
+};
+
+const Pets: NextPageWithLayout<DataProps> = ({ pets }) => {
   const [isCreateModal, openCreateModal, closeCreateModal] = useModal();
 
   return (
@@ -16,6 +24,7 @@ const Pets: NextPageWithLayout = () => {
       <button className={styles.button} onClick={openCreateModal}>
         Dar en adopción
       </button>
+      <Gallery pets={pets} />
 
       <CreateFormModal isOpen={isCreateModal} onClose={closeCreateModal} />
     </main>
@@ -27,3 +36,9 @@ Pets.getLayout = function getLayout(page) {
 };
 
 export default Pets;
+
+export const getServerSideProps: GetServerSideProps<DataProps> = async () => {
+  const pets = await getAllPets();
+
+  return { props: { pets } };
+};

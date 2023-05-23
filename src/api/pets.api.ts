@@ -5,7 +5,9 @@ import { withAxiosHandler } from './commons';
 
 const ENDPOINT = '/api/pets';
 
-export const getAll = withAxiosHandler(async () => axios.get<PetSchema[]>(ENDPOINT));
+export const getAllPets = withAxiosHandler(async () =>
+  axios.get<PetSchema[]>(`https://mascotas-ochre.vercel.app${ENDPOINT}`)
+);
 
 export const getPet = withAxiosHandler(async (petId: PetSchema['_id']) =>
   axios.get<PetSchema>(`${ENDPOINT}/${petId}`)

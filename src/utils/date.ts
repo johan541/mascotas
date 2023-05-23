@@ -13,3 +13,7 @@ export function subtractYears(years: number, date: Date = new Date()): Dayjs {
 export function calculateYears(date: Date | Dayjs | string): number {
   return dayjs().diff(date, 'years');
 }
+
+export function calculateMonths(date: Date | Dayjs | string): number {
+  return dayjs().diff(date, 'months');
+}
