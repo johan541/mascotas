@@ -4,6 +4,7 @@ import { Person } from '@/models/person.model';
 import { PersonRepository } from '@/repositories';
 import { Message } from '@/schemas/message.schema';
 import { IController } from './interfaces';
+import { calculateYears } from '@/utils/date';
 
 export class PersonController implements IController<Person> {
   constructor(private readonly personRepository: PersonRepository) {}
@@ -39,6 +40,13 @@ export class PersonController implements IController<Person> {
       const person = await this.personRepository.findOne({ dni: newPerson.dni });
       if (person) {
         return res.status(409).json({ message: 'La persona ya existe' });
+      }
+
+      const userAge = calculateYears(newPerson.birthdate);
+      if (userAge < 14) {
+        return res
+          .status(400)
+          .json({ message: 'Debes tener al menos 14 años para registrarte' });
       }
 
       const createdPerson = await this.personRepository.create(newPerson);
