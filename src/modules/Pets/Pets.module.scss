@@ -1,0 +1,33 @@
+@import '@/styles/elements/links';
+@import '@/styles/settings/colors';
+
+.main {
+  align-content: start;
+}
+
+.title {
+  font-size: 24pt;
+  margin-top: 4rem;
+}
+
+.button {
+  @include non-link;
+  grid-area: button;
+  justify-self: center;
+  align-self: start;
+  font-size: 12pt;
+  font-weight: 500;
+  background-color: $primary-100;
+  outline-color: $primary-300;
+  border: 2px solid $text-200;
+  border-radius: 1vmin;
+  padding: 0.8rem;
+
+  &:hover {
+    border-color: $text-100;
+  }
+
+  &:active {
+    scale: 0.9;
+  }
+}

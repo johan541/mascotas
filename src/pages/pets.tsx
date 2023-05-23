@@ -1,6 +1,6 @@
 import { AuthLayout } from '@/components/Layout';
 import { useModal } from '@/components/Modal';
-import { styles } from '@/modules/Home';
+import { styles } from '@/modules/Pets';
 import { CreateFormModal } from '@/modules/Pets';
 import type { NextPageWithLayout } from '@/types/next';
 
@@ -9,9 +9,14 @@ const Pets: NextPageWithLayout = () => {
 
   return (
     <main className={styles.main}>
-      <h1>Adopción de mascotas</h1>
-      <p>¿Quiénes somos?</p>
-      <button onClick={openCreateModal}>Registrar mascota</button>
+      <h1 className={styles.title}>
+        Encuentra tu mejor amigo:
+        <br />
+        Explora nuestra Galería de Adopción
+      </h1>
+      <button className={styles.button} onClick={openCreateModal}>
+        Dar en adopción
+      </button>
 
       <CreateFormModal isOpen={isCreateModal} onClose={closeCreateModal} />
     </main>
