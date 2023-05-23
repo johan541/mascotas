@@ -1,3 +1,4 @@
+import { signIn } from 'next-auth/react';
 import { useMemo } from 'react';
 import { FormProvider, type SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
@@ -5,10 +6,11 @@ import { toast } from 'react-toastify';
 import { createPerson } from '@/api/people.api';
 import { createUser } from '@/api/users.api';
 import { type CommandAttributes, Form, type FieldAttributes } from '@/components/Form';
+import { getToastConfig } from '@/helpers/toast.config';
+import { Routes } from '@/helpers/routes';
 import type { PersonCreate } from '@/schemas/person.schema';
 import type { UserCreate } from '@/schemas/user.schema';
 import { formattedDateForInput, subtractYears } from '@/utils/date';
-import { getToastConfig } from '@/helpers/toast.config';
 
 type RegistrationValues = UserCreate & PersonCreate;
 
@@ -113,6 +115,12 @@ const SignUpForm = () => {
 
       await createPerson(personData);
       await createUser(userData);
+
+      await signIn('credentials', {
+        username: formData.username,
+        password: formData.password,
+        callbackUrl: Routes.HOME.path,
+      });
     } catch (error) {
       toast.error<string>((error as Error).message, getToastConfig());
     }
