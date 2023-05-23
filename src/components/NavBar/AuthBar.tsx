@@ -1,12 +1,13 @@
 import Avvvatars from 'avvvatars-react';
-import { IconCaretDown } from '@tabler/icons-react';
+import { signOut, useSession } from 'next-auth/react';
+import { IconCaretDown, IconLogout } from '@tabler/icons-react';
+
+import { AuthRoutes } from '@/helpers/routes';
 
 import styles from './NavBar.module.scss';
-import { useSession } from 'next-auth/react';
 
 const AuthBar = () => {
-  const { data: session, status } = useSession();
-  console.log({ session, status });
+  const { data: session } = useSession();
   const name = session?.user?.person.name.split(' ')[0] || 'User';
 
   return (
@@ -21,11 +22,26 @@ const AuthBar = () => {
         aria-hidden
       />
       <span className={styles.username}>{name}</span>
-      <IconCaretDown
-        stroke={2.4}
-        className={styles.arrow}
-        aria-label='Menú desplegable del usuario'
-      />
+      <button className={styles.button}>
+        <IconCaretDown
+          stroke={2.4}
+          className={styles.arrow}
+          aria-label='Menú desplegable del usuario'
+        />
+      </button>
+
+      <section className={styles.dropdown}>
+        <ul className={styles.menu}>
+          <li className={styles.item}>
+            <button
+              className={styles.logout}
+              onClick={() => signOut({ callbackUrl: AuthRoutes.SIGN_IN.path })}
+            >
+              <IconLogout size={20} aria-hidden /> Cerrar sesión
+            </button>
+          </li>
+        </ul>
+      </section>
     </section>
   );
 };
