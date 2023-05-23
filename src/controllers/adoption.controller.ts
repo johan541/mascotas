@@ -1,12 +1,17 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 import { Adoption } from '@/models/adoption.model';
-import { AdoptionRepository } from '@/repositories';
+import { AdoptionRepository, PetRepository, UserRepository } from '@/repositories';
+import { AdoptionCreate } from '@/schemas/adoption.schema';
 import { Message } from '@/schemas/message.schema';
 import { IController } from './interfaces';
 
 export class AdoptionController implements IController<Adoption> {
-  constructor(private readonly adoptionRepository: AdoptionRepository) {}
+  constructor(
+    private readonly adoptionRepository: AdoptionRepository,
+    private readonly userRepository: UserRepository,
+    private readonly petRepository: PetRepository
+  ) {}
 
   public async getAll(
     req: NextApiRequest,
@@ -25,7 +30,7 @@ export class AdoptionController implements IController<Adoption> {
     if (adoption) {
       res.status(200).json(adoption);
     } else {
-      res.status(404).json({ message: 'Adopcion no encontrada' });
+      res.status(404).json({ message: 'Adopción no encontrada' });
     }
   }
 
@@ -34,8 +39,24 @@ export class AdoptionController implements IController<Adoption> {
     res: NextApiResponse<Adoption | Message>
   ): Promise<void> {
     try {
-      const newAdoption = req.body as Adoption;
-      const createdAdoption = await this.adoptionRepository.create(newAdoption);
+      const newAdoption = req.body as AdoptionCreate;
+
+      const user = await this.userRepository.findById(newAdoption.user);
+      if (!user) {
+        return res.status(404).json({ message: 'Usuario no encontrado' });
+      }
+
+      const pet = await this.petRepository.findById(newAdoption.pet);
+      if (!pet) {
+        return res.status(404).json({ message: 'Mascota no encontrada' });
+      }
+
+      const adoption: Adoption = {
+        user: user._id,
+        pet: pet._id,
+      };
+
+      const createdAdoption = await this.adoptionRepository.create(adoption);
       res.status(201).json(createdAdoption);
     } catch (error) {
       if (error instanceof Error) {
@@ -78,7 +99,7 @@ export class AdoptionController implements IController<Adoption> {
     const { id } = req.query;
     const adoption = await this.adoptionRepository.delete(id as string);
     if (!adoption) {
-      return res.status(404).json({ message: 'Adopcion no encontrada' });
+      return res.status(404).json({ message: 'Adopción no encontrada' });
     }
     res.status(204).send();
   }

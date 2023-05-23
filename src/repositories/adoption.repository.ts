@@ -6,20 +6,23 @@ import { IRepository } from './interfaces';
 
 export class AdoptionRepository implements IRepository<Adoption> {
   public async findAll(): Promise<DocumentType<Adoption>[]> {
-    return AdoptionModel.find();
+    return AdoptionModel.find().populate({ path: 'pet', model: 'Pet' });
   }
 
   public async findById(
     id: Types.ObjectId | string
   ): Promise<DocumentType<Adoption> | null> {
-    return AdoptionModel.findById(id);
+    return AdoptionModel.findById(id).populate({ path: 'pet', model: 'Pet' });
   }
 
   public async findOne(
     filter: FilterQuery<Adoption>,
     projection?: ProjectionType<Adoption>
   ): Promise<DocumentType<Adoption> | null> {
-    return AdoptionModel.findOne(filter, projection);
+    return AdoptionModel.findOne(filter, projection).populate({
+      path: 'pet',
+      model: 'Pet',
+    });
   }
 
   public async create(adoption: Adoption): Promise<DocumentType<Adoption>> {

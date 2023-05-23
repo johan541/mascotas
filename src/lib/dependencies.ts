@@ -29,7 +29,11 @@ const speciesBreedRepository = new SpeciesBreedRepository();
 export const personController = new PersonController(personRepository);
 export const roleController = new RoleController(roleRepository);
 export const petController = new PetController(petRepository, speciesBreedRepository);
-export const adoptionController = new AdoptionController(adoptionRepository);
+export const adoptionController = new AdoptionController(
+  adoptionRepository,
+  userRepository,
+  petRepository
+);
 export const userController = new UserController(
   userRepository,
   roleRepository,
