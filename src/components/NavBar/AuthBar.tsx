@@ -33,12 +33,19 @@ const AuthBar = () => {
 
       <section className={styles.dropdown}>
         <ul className={styles.menu}>
+          {session?.user?.role.name === 'admin' ? (
+            <li className={styles.item}>
+              <span className={styles.badge}>Admin</span>
+              <hr />
+            </li>
+          ) : null}
           {Object.values(DropdownRoutes).map(({ name, path }) => (
             <li key={nameUser} className={styles.item}>
               <Link href={path}>{name}</Link>
             </li>
           ))}
           <li className={styles.item}>
+            <hr />
             <button
               className={styles.logout}
               onClick={() => signOut({ callbackUrl: AuthRoutes.SIGN_IN.path })}

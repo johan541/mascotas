@@ -31,7 +31,7 @@ const MyPets: NextPageWithLayout<DataProps> = ({ adoptedPets, petsForAdoption })
       {petsForAdoption.length > 0 ? (
         <AdoptionGallery petsForAdoption={petsForAdoption} />
       ) : (
-        <span className={styles.error}>No hay mascotas adoptadas</span>
+        <span className={styles.error}>No hay mascotas en proceso de adopción</span>
       )}
     </main>
   );
