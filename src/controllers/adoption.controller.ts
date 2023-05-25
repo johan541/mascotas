@@ -17,6 +17,29 @@ export class AdoptionController implements IController<Adoption> {
     req: NextApiRequest,
     res: NextApiResponse<Adoption[] | Message>
   ): Promise<void> {
+    const { userId, petId } = req.query;
+
+    if (userId) {
+      const user = await this.userRepository.findById(userId as string);
+      if (!user) {
+        return res.status(404).json({ message: 'Usuario no encontrado' });
+      }
+
+      const pets = await this.adoptionRepository.findAdoptedPetsByUser(user._id);
+      return res.status(200).json(pets);
+    }
+
+    if (petId) {
+      console.log(petId);
+      const pet = await this.petRepository.findById(petId as string);
+      if (!pet) {
+        return res.status(404).json({ message: 'Mascota no encontrada' });
+      }
+
+      const pets = await this.adoptionRepository.findUsersByPet(pet._id);
+      return res.status(200).json(pets);
+    }
+
     const adoption = await this.adoptionRepository.findAll();
     res.status(200).json(adoption);
   }

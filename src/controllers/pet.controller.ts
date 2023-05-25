@@ -17,6 +17,18 @@ export class PetController implements IController<Pet> {
     req: NextApiRequest,
     res: NextApiResponse<Pet[] | Message>
   ): Promise<void> {
+    const { userId } = req.query;
+
+    if (userId) {
+      const user = await this.userRepository.findById(userId as string);
+      if (!user) {
+        return res.status(404).json({ message: 'Usuario no encontrado' });
+      }
+
+      const pets = await this.petRepository.findPetsByUser(user._id);
+      return res.status(200).json(pets);
+    }
+
     const pet = await this.petRepository.findAll();
     res.status(200).json(pet);
   }

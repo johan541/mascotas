@@ -12,3 +12,7 @@ export const AuthRoutes = Object.freeze({
   SIGN_IN: Object.freeze<Route>({ path: '/login', name: 'Iniciar sesión' }),
   SIGN_UP: Object.freeze<Route>({ path: '/signup', name: 'Registrarse' }),
 });
+
+export const DropdownRoutes = Object.freeze({
+  MY_PETS: Object.freeze<Route>({ path: '/my-pets', name: 'Mis mascotas' }),
+});

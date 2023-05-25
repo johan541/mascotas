@@ -2,7 +2,7 @@ import type { FilterQuery, ProjectionType, Types } from 'mongoose';
 import type { DocumentType } from '@typegoose/typegoose';
 
 export interface IRepository<T> {
-  findAll: () => Promise<DocumentType<T>[]>;
+  findAll: (filter?: FilterQuery<T>) => Promise<DocumentType<T>[]>;
   findById: (id: Types.ObjectId | string) => Promise<DocumentType<T> | null>;
   findOne: (
     filter: FilterQuery<T>,

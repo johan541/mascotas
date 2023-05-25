@@ -6,7 +6,18 @@ import { IRepository } from './interfaces';
 
 export class AdoptionRepository implements IRepository<Adoption> {
   public async findAll(): Promise<DocumentType<Adoption>[]> {
-    return AdoptionModel.find().populate({ path: 'pet', model: 'Pet' });
+    return AdoptionModel.find().populate({
+      path: 'pet',
+      model: 'Pet',
+      populate: {
+        path: 'speciesBreed',
+        model: 'SpeciesBreed',
+        populate: [
+          { path: 'specie', model: 'Specie' },
+          { path: 'breed', model: 'Breed' },
+        ],
+      },
+    });
   }
 
   public async findById(
@@ -22,6 +33,21 @@ export class AdoptionRepository implements IRepository<Adoption> {
     return AdoptionModel.findOne(filter, projection).populate({
       path: 'pet',
       model: 'Pet',
+    });
+  }
+
+  public async findAdoptedPetsByUser(userId: Types.ObjectId | string) {
+    return AdoptionModel.find({ user: userId, isAdopted: true }).populate({
+      path: 'pet',
+      model: 'Pet',
+    });
+  }
+
+  public async findUsersByPet(petId: Types.ObjectId | string) {
+    return AdoptionModel.find({ pet: petId }).populate({
+      path: 'user',
+      model: 'User',
+      populate: { path: 'person', model: 'Person' },
     });
   }
 

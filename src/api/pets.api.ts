@@ -9,6 +9,12 @@ export const getAllPets = withAxiosHandler(async () =>
   axios.get<PetSchema[]>(`https://mascotas-ochre.vercel.app${ENDPOINT}`)
 );
 
+export const getPetsByUser = withAxiosHandler(async (userId: PetCreate['user']) =>
+  axios.get<PetSchema[]>(`https://mascotas-ochre.vercel.app${ENDPOINT}`, {
+    params: { userId },
+  })
+);
+
 export const getPet = withAxiosHandler(async (petId: PetSchema['_id']) =>
   axios.get<PetSchema>(`${ENDPOINT}/${petId}`)
 );

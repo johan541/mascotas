@@ -138,11 +138,17 @@
     @include non-list;
     display: grid;
     grid-template-columns: max-content;
+    gap: 1.2rem;
 
-    & > .item {
+    & .item {
       font-size: 10pt;
       font-weight: 600;
       letter-spacing: 0.25px;
+      text-align: center;
+
+      & a {
+        @include non-link;
+      }
     }
 
     & .logout {

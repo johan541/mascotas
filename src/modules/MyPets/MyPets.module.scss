@@ -1,0 +1,30 @@
+@import '@/styles/elements/links';
+@import '@/styles/settings/colors';
+
+.main {
+  display: flex !important;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 1.2rem;
+}
+
+.title {
+  font-size: 24pt;
+  margin-top: 4rem;
+}
+
+.subtitle {
+  font-size: 16pt;
+  margin-top: 2rem;
+}
+
+.error {
+  width: 100%;
+  color: text-200;
+  font-size: 12pt;
+  font-weight: 400;
+  text-align: center;
+  margin: 1rem 0 6rem 0;
+  box-sizing: border-box;
+}
