@@ -44,11 +44,16 @@ export class AdoptionRepository implements IRepository<Adoption> {
   }
 
   public async findUsersByPet(petId: Types.ObjectId | string) {
-    return AdoptionModel.find({ pet: petId }).populate({
-      path: 'user',
-      model: 'User',
-      populate: { path: 'person', model: 'Person' },
-    });
+    return AdoptionModel.find({ pet: petId })
+      .populate({
+        path: 'user',
+        model: 'User',
+        populate: { path: 'person', model: 'Person' },
+      })
+      .populate({
+        path: 'pet',
+        model: 'Pet',
+      });
   }
 
   public async create(adoption: Adoption): Promise<DocumentType<Adoption>> {

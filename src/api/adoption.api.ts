@@ -7,7 +7,7 @@ import type {
 } from '@/schemas/adoption.schema';
 import { withAxiosHandler } from './commons';
 
-const ENDPOINT = 'http://127.0.0.1:3000/api/adoptions';
+const ENDPOINT = 'https://mascotas-ochre.vercel.app/api/adoptions';
 
 export const createAdoption = withAxiosHandler(async (adoption: AdoptionCreate) =>
   axios.post<AdoptionSchema>(ENDPOINT, adoption)

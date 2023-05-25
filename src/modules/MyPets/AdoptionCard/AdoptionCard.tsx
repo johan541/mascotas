@@ -30,7 +30,7 @@ const AdoptionCard: React.FC<Props> = ({ pet, adoptionRequests }) => {
   const handleAdoptionRequest = async (adoption: AdoptionSchema) => {
     const adoptionToUpdate: AdoptionUpdate = {
       user: adoption.user._id,
-      pet: adoption.pet,
+      pet: adoption.pet._id,
       isAdopted: true,
     };
 
