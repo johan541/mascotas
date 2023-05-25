@@ -14,8 +14,6 @@ const handler: NextApiHandler<PetResponse> = async (req, res) => {
     await petController.getAll(req, res);
   } else if (req.method === 'POST') {
     await petController.create(req, res);
-  } else if (req.method === 'PUT') {
-    await petController.update(req, res);
   } else if (req.method === 'DELETE') {
     await petController.delete(req, res);
   } else {

@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 
 import { Adoption } from '@/models/adoption.model';
 import { AdoptionRepository, PetRepository, UserRepository } from '@/repositories';
-import { AdoptionCreate } from '@/schemas/adoption.schema';
+import { AdoptionCreate, AdoptionUpdate } from '@/schemas/adoption.schema';
 import { Message } from '@/schemas/message.schema';
 import { IController } from './interfaces';
 
@@ -51,12 +51,19 @@ export class AdoptionController implements IController<Adoption> {
         return res.status(404).json({ message: 'Mascota no encontrada' });
       }
 
-      const adoption: Adoption = {
+      const createAdoption: Adoption = {
         user: user._id,
         pet: pet._id,
       };
 
-      const createdAdoption = await this.adoptionRepository.create(adoption);
+      const adoption = await this.adoptionRepository.findOne(createAdoption);
+      if (adoption) {
+        return res
+          .status(409)
+          .json({ message: 'La adopción está en espera de aprobación' });
+      }
+
+      const createdAdoption = await this.adoptionRepository.create(createAdoption);
       res.status(201).json(createdAdoption);
     } catch (error) {
       if (error instanceof Error) {
@@ -71,19 +78,32 @@ export class AdoptionController implements IController<Adoption> {
   ): Promise<void> {
     try {
       const { id } = req.query;
-      const data = req.body as Partial<Adoption>;
-      const adoption = await this.adoptionRepository.findById(id as string);
-      if (!adoption) {
-        return res.status(404).json({ message: 'Adopción no encontrada' });
+      const updateAdoption = req.body as AdoptionUpdate;
+
+      const user = await this.userRepository.findById(updateAdoption.user);
+      if (!user) {
+        return res.status(404).json({ message: 'Usuario no encontrado' });
       }
-      const updateAdoption: Adoption = { ...adoption, ...data };
+
+      const pet = await this.petRepository.findById(updateAdoption.pet);
+      if (!pet) {
+        return res.status(404).json({ message: 'Mascota no encontrada' });
+      }
+
+      const adoption: Adoption = {
+        user: user._id,
+        pet: pet._id,
+        isAdopted: updateAdoption.isAdopted,
+      };
       const updatedAdoption = await this.adoptionRepository.update(
         id as string,
-        updateAdoption
+        adoption
       );
+
       if (!updatedAdoption) {
         return res.status(404).json({ message: 'Adopción no encontrada' });
       }
+
       res.status(200).json(updatedAdoption);
     } catch (error) {
       if (error instanceof Error) {

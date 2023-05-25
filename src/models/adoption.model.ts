@@ -11,6 +11,9 @@ export class Adoption {
 
   @prop({ required: true, ref: () => User })
   user: Ref<User>;
+
+  @prop({ default: false })
+  isAdopted?: boolean;
 }
 
 export const AdoptionModel = getModelForClass(Adoption);

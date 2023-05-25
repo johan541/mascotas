@@ -28,7 +28,11 @@ const speciesBreedRepository = new SpeciesBreedRepository();
 // Controllers dependencies
 export const personController = new PersonController(personRepository);
 export const roleController = new RoleController(roleRepository);
-export const petController = new PetController(petRepository, speciesBreedRepository);
+export const petController = new PetController(
+  petRepository,
+  speciesBreedRepository,
+  userRepository
+);
 export const adoptionController = new AdoptionController(
   adoptionRepository,
   userRepository,

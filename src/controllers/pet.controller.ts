@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 import { Pet } from '@/models/pet.model';
-import { PetRepository, SpeciesBreedRepository } from '@/repositories';
+import { PetRepository, SpeciesBreedRepository, UserRepository } from '@/repositories';
 import { Message } from '@/schemas/message.schema';
 import { PetCreate } from '@/schemas/pet.schema';
 import { IController } from './interfaces';
@@ -9,7 +9,8 @@ import { IController } from './interfaces';
 export class PetController implements IController<Pet> {
   constructor(
     private readonly petRepository: PetRepository,
-    private readonly speciesBreedRepository: SpeciesBreedRepository
+    private readonly speciesBreedRepository: SpeciesBreedRepository,
+    private readonly userRepository: UserRepository
   ) {}
 
   public async getAll(
@@ -39,6 +40,7 @@ export class PetController implements IController<Pet> {
   ): Promise<void> {
     try {
       const newPet = req.body as PetCreate;
+
       const speciesBreed = await this.speciesBreedRepository.findById(
         newPet.speciesBreed
       );
@@ -46,11 +48,17 @@ export class PetController implements IController<Pet> {
         return res.status(404).json({ message: 'Especie y raza no encontradas' });
       }
 
+      const user = await this.userRepository.findById(newPet.user as string);
+      if (!user) {
+        return res.status(404).json({ message: 'Usuario no encontrado' });
+      }
+
       const pet: Pet = {
         name: newPet.name,
         birthdate: newPet.birthdate,
         gender: newPet.gender,
         speciesBreed: speciesBreed._id,
+        user: user._id,
       };
       const createdPet = await this.petRepository.create(pet);
       res.status(201).json(createdPet);

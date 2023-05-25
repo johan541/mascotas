@@ -13,6 +13,7 @@ import { PetCreate } from '@/schemas/pet.schema';
 import { SpeciesBreedCreate } from '@/schemas/speciesBreed.schema';
 
 import styles from './CreateFormModal.module.scss';
+import { useSession } from 'next-auth/react';
 
 type PetValues = {
   name: string;
@@ -29,6 +30,7 @@ type Props = {
 
 const CreateFormModal: React.FC<Props> = ({ isOpen, onClose }) => {
   const router = useRouter();
+  const { data: session } = useSession();
   const formMethods = useForm<PetValues>();
 
   const data = useMemo<FieldAttributes<PetValues>[]>(
@@ -93,6 +95,7 @@ const CreateFormModal: React.FC<Props> = ({ isOpen, onClose }) => {
         birthdate: formData.birthdate,
         gender: formData.gender,
         speciesBreed: speciesBreed._id,
+        user: session?.user._id ?? '',
       };
       await createPet(petData);
 

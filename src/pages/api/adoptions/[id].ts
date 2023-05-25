@@ -1,20 +1,19 @@
 import type { NextApiHandler } from 'next';
 
-import { petController } from '@/lib/dependencies';
-import { Pet } from '@/models/pet.model';
+import { adoptionController } from '@/lib/dependencies';
+import { Adoption } from '@/models/adoption.model';
 import { Message } from '@/schemas/message.schema';
 import { dbConnect } from '@/utils/mongoose';
 
 dbConnect();
 
-type PetResponse = Pet | Message;
+type RoleResponse = Adoption | Message;
 
-const handler: NextApiHandler<PetResponse> = async (req, res) => {
-  // TODO: Colocar autentificación de endpoint
+const handler: NextApiHandler<RoleResponse> = async (req, res) => {
   if (req.method === 'GET') {
-    await petController.getById(req, res);
+    await adoptionController.getById(req, res);
   } else if (req.method === 'PUT') {
-    await petController.update(req, res);
+    await adoptionController.update(req, res);
   } else {
     res.status(405).json({ message: 'Método no permitido' });
   }
