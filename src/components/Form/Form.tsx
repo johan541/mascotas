@@ -25,7 +25,7 @@ function Form<T extends FieldValues>({
         <Field<T> key={`${formId}-${field.name}`} {...field} />
       ))}
 
-      <Commands data={commands} />
+      {commands ? <Commands data={commands} /> : null}
     </form>
   );
 }

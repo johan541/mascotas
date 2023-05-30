@@ -15,4 +15,5 @@ export const AuthRoutes = Object.freeze({
 
 export const DropdownRoutes = Object.freeze({
   MY_PETS: Object.freeze<Route>({ path: '/my-pets', name: 'Mis mascotas' }),
+  MY_PROFILE: Object.freeze<Route>({ path: '/profile', name: 'Mi perfil' }),
 });

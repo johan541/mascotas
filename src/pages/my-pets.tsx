@@ -38,7 +38,7 @@ const MyPets: NextPageWithLayout<DataProps> = ({ adoptedPets, petsForAdoption })
 };
 
 MyPets.getLayout = function getLayout(page) {
-  return <AuthLayout>{page}</AuthLayout>;
+  return <AuthLayout title='Mis mascotas'>{page}</AuthLayout>;
 };
 
 export default MyPets;

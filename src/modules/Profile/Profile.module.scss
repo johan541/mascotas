@@ -1,0 +1,11 @@
+@import '@/styles/atoms/container';
+
+.content {
+  @include container;
+  margin: 2rem;
+}
+
+.title {
+  font-size: 18pt;
+  text-align: center;
+}
